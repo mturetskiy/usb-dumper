@@ -59,21 +59,21 @@ public class UsbDumper {
                     } finally {
                         LibUsb.freeConfigDescriptor(configDescriptor);
                     }
-
-                    DeviceHandle deviceHandle = new DeviceHandle();
-                    int openRes = LibUsb.open(device, deviceHandle);
-                    if (openRes < 0) {
-                        log.error("Unable to open usb device");
-                        continue;
-                    }
-
-                    log.info("{}", deviceDescriptor.dump(deviceHandle));
-
-                    log.info("Trying to read: ");
-                    tryToRead(deviceHandle);
-
-                    LibUsb.close(deviceHandle);
                 }
+
+                DeviceHandle deviceHandle = new DeviceHandle();
+                int openRes = LibUsb.open(device, deviceHandle);
+                if (openRes < 0) {
+                    log.error("Unable to open usb device");
+                    continue;
+                }
+
+                log.info("{}", deviceDescriptor.dump(deviceHandle));
+
+                log.info("Trying to read: ");
+                tryToRead(deviceHandle);
+
+                LibUsb.close(deviceHandle);
 
                 log.info("--------------------------------------");
             }
